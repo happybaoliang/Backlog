@@ -1,48 +1,23 @@
-%% template for IEICE Transactions
-%% v1.8 [2011/12/16]
-\documentclass[paper]{ieice}
-%\documentclass[invited]{ieice}
-%\documentclass[survey]{ieice}
-%\documentclass[invitedsurvey]{ieice}
-%\documentclass[review]{ieice}
-%\documentclass[tutorial]{ieice}
-%\documentclass[letter]{ieice}
-%\documentclass[brief]{ieice}
-\usepackage[dvips]{graphicx}
-\usepackage[fleqn]{amsmath}
-\usepackage[varg]{txfonts}
-\usepackage{subfig}
+\documentclass[12pt]{article}
+\usepackage{graphicx}
+\usepackage{amsmath}               % great math stuff
+\usepackage{amsfonts}              % for blackboard bold, etc
 
-\setcounter{page}{1}
-%\breakauthorline{}% breaks lines after the n-th author
-
-\field{B}
-%\SpecialIssue{}
-%\SpecialSection{}
-%\theme{}
 \title{Analyzing the Backlog Bound of End-to-End Window Flow Controller with Stochastic Network Calculus}
-%\title[title for header]{title}
-%\titlenote{This research is supported by High Technology Research and Development Program of China (Grant No. 2012AA012201, 2012AA011902).}
-\authorlist{% fill arguments of \authorentry, otherwise error will be caused.
- \authorentry[libaoliang@nudt.edu.cn]{Baoliang LI}{s}{label1}
- \authorentry[zhaojie8037@gmail.com]{Jie ZHAO}{n}{label2}
- \authorentry{Wenhua DOU}{n}{label1}
-% \authorentry{name}{membership}{affiliate label}
-% \authorentry{name}{membership}{affiliate label}[present affiliate label]
-% \authorentry[e-mail address]{name}{membership}{affiliate label}
-% \authorentry[e-mail address]{name}{membership}{affiliate label}[present affiliate label]
+
+\author{Baoliang Li \\
+National University of Defense Technology \\
+Changsha, Hu'nan 410073 P.R. China
+\and
+Jie Zhao\\
+State Key Laboratory of Mathematical \\
+Engineering and Advanced Computing\\
+P.R. China
+\and
+Wenhua Dou \\
+National University of Defense Technology \\
+Changsha, Hu'nan 410073 P.R. China
 }
-\affiliate[label1]{The authors are with the College of Computer, National University of Defense Technology, China.}
-\affiliate[label2]{The author is with the State Key Laboratory of Mathematical Engineering and Advanced Computing, China.}
-%\paffiliate[present affiliate label]{Presently, the author is with the }
-
-\received{2014}{01}{8}
-%\revised{2014}{01}{8}
-%\finalreceived{2011}{1}{1}
-
-%% <local definitions here>
-
-%% </local definitions here>
 
 \newtheorem{theorem}{Theorem}
 \newtheorem{lemma}{Lemma}
@@ -56,12 +31,11 @@
 
 \begin{document}
 \maketitle
-\begin{summary}
+\begin{abstract}
 Window Flow Controller (WFC) has been widely used in the computer networks and interconnection networks for its simplicity and high efficiency. It is very important to quantify the buffer requirement of the WFC, because the buffer is always a scarce resource and should be allocated on demand. In addition, the stochastic backlog bound can also be viewed as the blocking/loss ratio, which is a key Quality-of-Service (QoS) parameter of the network. To meet this great demand, we study the stochastic backlog bound by leveraging the recently developed Stochastic Network Calculus (SNC) theory. Breaking the dependence between arrived traffic and admitted traffic, and characterizing the stochastic backlog bound with stochastic arrival curve of arrived traffic and stochastic service curve provided by the network are the main task of this paper. The main contribution of our work is the derivation of four stochastic backlog bounds for the lossless WFC, with each bound applying under different condition. The stochastic backlog bounds we obtained in this paper are non-asymptotic, which complements the steady-state results based on queueing theory. Our work not only promotes the theory and application of SNC, but also provides a powerful analytical approach for the performance evaluation and optimization of network with window flow control.
-\end{summary}
-\begin{keywords}
-Stochastic Network Calculus, Window Flow Controller, Backlog Bound, feedback network
-\end{keywords}
+\end{abstract}
+
+{\bf Keywords:} Stochastic Network Calculus, Window Flow Controller, Backlog Bound, Feedback Network
 
 \section{Introduction}
 Flow control is an efficient mechanism to avoid network congestion, deadlock and unfair resource allocation \cite{1094691}. Among all these flow control mechanisms, Window Flow Controller (WFC) has been widely used in the computer networks and interconnection networks for its simplicity and high efficiency. The well-known Transmission Control Protocol \cite{RFC5681} and credit-based flow control \cite{372658,DaTo04} are two typical implementations of WFC.\@ In a network with WFC, to realize the lossless transmission, the controller should allocate enough buffer to hold the arrived packets temporarily when the number of unacknowledged packets exceeds the window size.\@ Determining the buffer requirement of lossless WFC is necessary and critical for the following two reasons: (1) The buffer should be allocated on demand, as it is always a scarce resource in any system; (2) The stochastic backlog bound can also be utilized to estimate the blocking/loss ratio for realistic networks, which is a key Quality-of-Service (QoS) parameter. Thus, one question raised: for given WFC parameters, i.e. feedback delay and window size, how to determine the buffer size of the controller under certain arrival and service pattern in order to guarantee certain QoS level? Simulation is commonly used for this purpose, although providing high accuracy, it is very time-consuming and difficult to cover all the configurations. Thus, in this paper, we adopt the analytical approach to evaluate the stochastic backlog bound.
@@ -76,7 +50,7 @@ Apart from the simulation based methods, researchers have proposed various analy
 In this paper, we fill this gap by leveraging the SNC theory, which is a theory for stochastic service guarantee analysis. Stochastic network calculus is a probabilistic extension of DNC, and gives the performance bound in the manner of probability tail distribution. Although introduced in early 1990s \cite{Chan94}, the theory of SNC becomes applicable recently, and several variations have been proposed, e.g. \cite{jiang2006basic,Fidl06,5984844,Ciucu2006Scaling}. For the systems providing stochastic service, SNC can give more reasonable performance bound than DNC, and be feasible to much more general scenarios than queueing theory. Thus, SNC has been widely used in the field of network coding \cite{10.1109/TPDS.2010.192}, cognitive radio \cite{5466711}, 802.11 DCF \cite{xie2010network}\cite{wang2012effectiveness}, wireless fading channel \cite{Fidler2006network,wangperformance}, etc. Please refer to \cite{JiangLiu-15877} for more details about SNC. However, as far as we know, all these existing applications of SNC are limited to feed-forward networks with infinite buffer capacity. Although the retransmission models in \cite{wangperformance,5466711} introduce the feedback from the destination to the source, the influence of feedback is eliminated by applying either the data scaling element \cite{wangperformance} or the impairment process \cite{5466711}. Our work in this paper is the first attempt to applying the SNC theory directly to the performance analysis of feedback networks. The most related work to our research is the queueing theory based analysis and optimization of pacing window flow control \cite{jung1996analysis,1095377}, especially the performance model for sliding window flow control proposed in \cite{jung1996analysis}. In Section \ref{experiments} of this paper, we will illustrate that, our theorems not only provide the same backlog bound as in \cite{jung1996analysis} but also complement the results obtained from queueing theory and DNC.
 
 \section{Preliminaries}\label{Notations}
-We first outline the notations used in this paper in Subsection \ref{notation}, then introduce the stochastic arrival curve and stochastic service curve utilized to derive the backlog bounds in Subsection \ref{trafficservice}. Finally, the definition of effective bandwidth and effective capacity are given in Subsection \ref{effectivebandcap}. Based on these concepts, four stochastic backlog bounds are obtained in Section \ref{sncloss}.
+We first outline the notations used in this paper in Subsection \ref{notation}, then introduce the flow control model we studied. Finally, the definition of traffic and service models utilized to derive the backlog bounds are given in Subsection \ref{trafficservice}. Based on these concepts, four stochastic backlog bounds are obtained in Section \ref{sncloss}.
 
 \subsection{Notations}\label{notation}
 In this paper, we consider the discrete time network model for simplicity. A process is defined as a non-deceasing casual function on time $t\ (t\geq 0)$. Specifically, denote the accumulative arrival process $\mathcal{A}(t)$ as the amount of traffic (in bits) arrived by time $t$, the accumulative service process $\mathcal{S}(t)$ as the amount of service (in bits) provided by the system by time $t$. Similarly, the accumulative admitted process $\mathcal{I}(t)$ and the accumulative departure process $\mathcal{D}(t)$ denote the amount of traffic entering the system and the amount of traffic departed from the system, respectively. All $\mathcal{A}(t)$, $\mathcal{S}(t)$, $\mathcal{I}(t)$ and $\mathcal{D}(t)$ belong to the set of non-negative non-decreasing functions, denoted by $\mathcal{F}$, and for any function $a(x)\in\mathcal{F}$, let $a(x)=0,\forall x<0$. We also define the following three bivariate functions to simplify our expressions: $\mathcal{A}(s,t)=\mathcal{A}(t)-\mathcal{A}(s)$, $\mathcal{S}(s,t)=\mathcal{S}(t)-\mathcal{S}(s)$ and $\mathcal{D}(s,t)=\mathcal{D}(t)-\mathcal{D}(s)$. In addition, we leverage the following two notations to shorten our expressions: $[x]_1=\min\{x,1\}$, $[x]^+=\max\{x,0\}$.
@@ -140,21 +114,19 @@ The $v.b.c.$ stochastic arrival curve has been widely used in SNC to derive perf
 $$\beta(t-s)-\mathcal{S}(s,t)\leq \sup_{0\leq s^\prime\leq t}\left\{\beta(t-s^\prime)-\mathcal{S}(s^\prime,t)\right\}$$
 which implies the following inequality
 \begin{eqnarray*}
-\lefteqn{P\left\{\beta(t-s)-\mathcal{S}(s,t)>x\right\}}\\
-&\leq& P\left\{\sup_{0\leq s^\prime\leq t}\left\{\beta(t-s^\prime)-\mathcal{S}(s^\prime,t)\right\}>x\right\}.
+P\left\{\beta(t-s)-\mathcal{S}(s,t)>x\right\} &\leq& P\left\{\sup_{0\leq s^\prime\leq t}\left\{\beta(t-s^\prime)-\mathcal{S}(s^\prime,t)\right\}>x\right\}.
 \end{eqnarray*}
 The left side of this inequality corresponds to the stochastic strict service curve. Thus, the bounding function of $v.b.$ stochastic strict service curve is indeed a bounding function for the stochastic strict service curve with the same stochastic strict service curve.
 
 (2) If a system $\mathcal{S}(t)$ provides a stochastic strict service curve $\beta(t)$ with bounding function $g\in\bar{\mathcal{G}}$, and $\beta(t)-\theta \cdot t\in\mathcal{F}$, where $\theta>0$ is a free parameter, then, for any $\theta$ satisfying $\beta_{\theta}(t)\in\mathcal{F}$, we can construct a $v.b.$ stochastic strict service curve $\beta_{\theta}(t)=\beta(t)-\theta \cdot t$. The bounding function of $\beta_\theta(t)$ can be obtained following the same procedure of Theorem 3.13 in \cite{JiangLiu-15877}, which is
 \begin{eqnarray*}
-\lefteqn{P\left\{\sup_{0\leq s\leq t}\{\beta_{\theta}(t-s)-\mathcal{S}(s,t)\}>x\right\}}\\
-&= &P\left\{\sup_{0\leq s\leq t}[\beta_{\theta}(t-s)-\mathcal{S}(s,t)]^+>x\right\}\\
+P\left\{\sup_{0\leq s\leq t}\{\beta_{\theta}(t-s)-\mathcal{S}(s,t)\}>x\right\} &= &P\left\{\sup_{0\leq s\leq t}[\beta_{\theta}(t-s)-\mathcal{S}(s,t)]^+>x\right\}\\
 &\leq &\sum_{s=0}^t P\left\{[\beta_{\theta}(t-s)-\mathcal{S}(s,t)]^+>x\right\}\\
 &\leq &\sum_{s=0}^t g(x+\theta\cdot(t-s))\\
 &\leq & \sum_{\tau=0}^\infty g(x+\theta\tau)\\
 &\leq & g(x)+\frac{1}{\theta}\int_{x}^\infty g(y)dy
 \end{eqnarray*}
-which completes the proof.\QED
+which completes the proof.
 \end{proof}
 
 We can also derive the model transform theorem between $v.b.$ stochastic strict service curve and $m.b.$ stochastic strict service curve, as shown in the following theorem, which provides a way to obtain the $m.b.$ stochastic strict service curve. We omit the detailed proof of this theorem, since it can be easily proved following the same proof procedure as Theorem \ref{mtrans}.
@@ -213,7 +185,7 @@ If $t_0$ is in one of the idle period of lossless WFC shown in Fig. \ref{control
 \end{equation}
 \end{lemma}
 \begin{proof}
-Obviously, for $\forall t\geq 0$, $\mathcal{I}(t)\leq \mathcal{A}(t)$ by casuality. At time instance $t_0$, if $\mathcal{I}(t_0)<\mathcal{A}(t_0)$, buffered data in controller will be admitted and makes the WFC keep on working, which is contrary to the fact that $t_0$ is in the idle period. Thus, $\mathcal{I}(t_0)=\mathcal{A}(t_0)$.\QED
+Obviously, for $\forall t\geq 0$, $\mathcal{I}(t)\leq \mathcal{A}(t)$ by casuality. At time instance $t_0$, if $\mathcal{I}(t_0)<\mathcal{A}(t_0)$, buffered data in controller will be admitted and makes the WFC keep on working, which is contrary to the fact that $t_0$ is in the idle period. Thus, $\mathcal{I}(t_0)=\mathcal{A}(t_0)$.
 \end{proof}
 
 We can also get the following Lemma. This Lemma makes no assumptions on the arrival process and service process, and serves as the basis to derive all the four backlog bounds in Subsection \ref{backlog}.
@@ -234,17 +206,17 @@ According to Lemma \ref{lamma1}, we have
   P\{\mathcal{L}(t)>x\}&=&P\{[\mathcal{A}(t)-\mathcal{T}(t)-W]^+>x\}\\
   &=&P\{\mathcal{A}(t)-\mathcal{T}(t)-W>x\}
 \end{eqnarray*}
-which ends the proof.\QED
+which ends the proof.
 \end{proof}
 
 \subsection{Backlog Bound}\label{backlog}
 In this Subsection, we will try to break the dependence between arrived traffic $\mathcal{A}(t)$ and admitted traffic $\mathcal{I}(t)$, and provide four backlog bounds for the WFC, each with different applying condition.
 \begin{theorem}[Backlog Bound for WFC]\label{theorem1}
-For a WFC with window size $W$, suppose the arrival process $\mathcal{A}(t)$ has a $v.b.c.$ stochastic arrival curve $<f,\alpha>$, the feed-forward service process $\mathcal{S}_1(t)$ has a $m.b.$ stochastic strict service curve $<g_1,\beta_1>$ and the feedback service process $\mathcal{S}_2(t)$ provides a $v.b.$ stochastic strict service curve $<g_2,\beta_2>$. Then, the backlog $\mathcal{L}(t)$ in the WFC is bounded by
+For a WFC with window size $W$, suppose the arrival process $\mathcal{A}(t)$ has a $v.b.c.$ stochastic arrival curve $<f,\alpha>$, the feed-forward service process $\mathcal{S}_1(t)$ has a $m.b.$ stochastic strict service curve $<g_1,\beta_1>$ and the feedback service process $\mathcal{S}_2(t)$ provides a $v.b.$ stochastic strict service curve $<g_2,\beta_2>$. When $\lim_{t\to\infty}\{\alpha(t)-\beta_1\otimes\beta_2(t)\}/t\leq 0$, the backlog $\mathcal{L}(t)$ in the WFC is bounded by
 \begin{equation}\label{eqn1}
 P\left\{\mathcal{L}(t)>x\right\}\leq [f\otimes g_1\otimes g_2([y^\prime]^+)]_1
 \end{equation}
-when $\lim_{t\to\infty}\{\alpha(t)-\beta_1\otimes\beta_2(t)\}/t\leq 0$, where $y^\prime=x+W-\sup_{0\leq v\leq t}\{\alpha\oslash(\beta_1\otimes\beta_2)(v)\}$.
+where $y^\prime=x+W-\sup_{0\leq v\leq t}\{\alpha\oslash(\beta_1\otimes\beta_2)(v)\}$.
 
 If $\mathcal{A}(t)$, $\mathcal{S}_1(t)$ and $\mathcal{S}_2(t)$ are independent, we can get a much tighter backlog bound with Stieljes convolution
 \begin{equation}\label{eqn2}
@@ -279,8 +251,7 @@ Since $\mathcal{T}(t_0)=\mathcal{D}(t_0)$, we have
 
 Let $t_2$ be the beginning of last backlogged period of $\mathcal{S}_1(t)$ before $t_1$, then $t_0\leq t_2< t_1$ and
 \begin{eqnarray}
-\lefteqn{\mathcal{A}(t_0,t)-\mathcal{S}_2(t_1,t)-\mathcal{D}(t_0,t_1)}\nonumber\\
-&=& \mathcal{A}(t_0,t)-\mathcal{S}_2(t_1,t)-\mathcal{D}_1(t_0,t_2)-\mathcal{S}_1(t_2,t_1)\nonumber\\
+\mathcal{A}(t_0,t)-\mathcal{S}_2(t_1,t)-\mathcal{D}(t_0,t_1) &=& \mathcal{A}(t_0,t)-\mathcal{S}_2(t_1,t)-\mathcal{D}_1(t_0,t_2)-\mathcal{S}_1(t_2,t_1)\nonumber\\
 &\leq& \mathcal{A}(t_0,t)-\mathcal{S}_2(t_1,t)-\mathcal{S}_1(t_2,t_1)\label{used4effec}\\
 &=& [\mathcal{A}(t_0,t)-\alpha(t-t_0)]\nonumber\\
 && +[\beta_1(t_1-t_2)-\mathcal{S}_1(t_2,t_1)]\nonumber\\
@@ -290,8 +261,7 @@ Let $t_2$ be the beginning of last backlogged period of $\mathcal{S}_1(t)$ befor
 
 For the expression in the last square brackets, let $s=t_{1}-t_{2}$ and $u=t_{2}-t_{0}$, then $0\leq s\leq t$ and $0\leq u\leq t$. We also have
 \begin{eqnarray}
-  \lefteqn{\alpha(t-t_{0})-\beta_1(t_{1}-t_{2})-\beta_2(t-t_1)}\nonumber\\
-  &\leq &\alpha(t-t_{0})-\inf_{0\leq s\leq t}\{\beta_1(s)+\beta_2(t-t_2-s)\}\nonumber\\
+  \alpha(t-t_{0})-\beta_1(t_{1}-t_{2})-\beta_2(t-t_1)&\leq &\alpha(t-t_{0})-\inf_{0\leq s\leq t}\{\beta_1(s)+\beta_2(t-t_2-s)\}\nonumber\\
   &=&\alpha(t-t_{0})-\beta_1\otimes\beta_2(t-t_{2})\nonumber\\
   &=&\alpha(t-t_{0})-\beta_1\otimes\beta_2(t-t_{0}-u)\nonumber\\
   &\leq & \sup_{0\leq u\leq t-t_0}\{\alpha(t-t_0)-\beta_1\otimes\beta_2(t-t_0-u)\}\nonumber\\
@@ -313,8 +283,7 @@ and
 
 Combining Eq.(\ref{initial})-Eq.(\ref{vb}), we get
 \begin{eqnarray*}
-\lefteqn{\mathcal{A}(t_0,t)-\mathcal{T}(t_0,t)-W}\\
-&\leq& \mathcal{X}(t)+\mathcal{Y}_1(t)+\mathcal{Y}_2(t)+\sup_{0\leq v\leq t}\{\alpha\oslash(\beta_1\otimes\beta_2)(v)\}-W.
+\mathcal{A}(t_0,t)-\mathcal{T}(t_0,t)-W &\leq& \mathcal{X}(t)+\mathcal{Y}_1(t)+\mathcal{Y}_2(t)+\sup_{0\leq v\leq t}\{\alpha\oslash(\beta_1\otimes\beta_2)(v)\}-W.
 \end{eqnarray*}
 
 This inequality is sufficient to obtain the upper bound of $P\{\mathcal{A}(t_0,t)-\mathcal{T}(t_0,t)-W>x\}$, because event $\{\mathcal{A}(t_0,t)-\mathcal{T}(t_0,t)-W>x\}$ implies $\{\mathcal{X}(t)+\mathcal{Y}_1(t)+\mathcal{Y}_2(t)+\sup_{0\leq v\leq t}\{\alpha\oslash(\beta_1\otimes\beta_2)(v)\}-W\}$. Thus, we have
@@ -355,7 +324,7 @@ Combining these two cases, we have
 
 If $\mathcal{A}(t)$, $\mathcal{S}_1(t)$ and $\mathcal{S}_2(t)$ are independent, we can adopt the Stieltjes convolution to get a much tighter probability bound
 $$P\{\mathcal{L}(t)>x\}\leq 1-\bar{f}\ast\bar{g_1}\ast\bar{g_2}([y^\prime]^+)$$
-which ends the proof.\QED
+which ends the proof.
 \end{proof}
 
 The above theorem was derived based on some basic probability techniques without making any assumption on the arrival process and service process. Although generality, the backlog bound can be further improved if we take the characterization of arrival and service into consideration. As shown in the following two theorems.
@@ -399,7 +368,7 @@ P\{\mathcal{L}(t)>x\}\leq {t+2\choose 3}\cdot \sup_{0\leq w\leq t}e^{\theta((t\r
 Because the model we considered in this paper is lossless, to avoid infinity backlog, the following stability condition should be hold for $\forall t>0$,
 $$\rho(\theta,t)\leq \mu_1^\prime\otimes\mu_2^\prime(\theta,t).$$
 
-Denote by $\Theta$ the set of $\theta$ satisfying $\rho(\theta,t)\leq \mu_1^\prime\otimes\mu_2^\prime(\theta,t)$, then we can optimize the backlog bound by selecting appropriate $\theta\in\Theta$ to make the right-hand side of Eq. \ref{target} minimized, which ends the proof.\QED
+Denote by $\Theta$ the set of $\theta$ satisfying $\rho(\theta,t)\leq \mu_1^\prime\otimes\mu_2^\prime(\theta,t)$, then we can optimize the backlog bound by selecting appropriate $\theta\in\Theta$ to make the right-hand side of Eq. \ref{target} minimized, which ends the proof.
 \end{proof}
 
 \begin{theorem}\label{theorem3}
@@ -426,7 +395,7 @@ P\left\{\mathcal{L}(t)>x\right\}  &=&P\left\{\mathcal{A}(t_{0},t)-\mathcal{S}(t_
   &=& e^{-\theta(W+x)}\cdot E[e^{\theta(\mathcal{A}(1)-\mathcal{S}(1))}].
 \end{eqnarray*}
 
-We can optimize the backlog bound by free parameter $\theta$ satisfying $E[e^{\theta(\mathcal{A}(1)-\mathcal{S}(1))}]\leq 1$.\QED
+We can optimize the backlog bound by free parameter $\theta$ satisfying $E[e^{\theta(\mathcal{A}(1)-\mathcal{S}(1))}]\leq 1$.
 \end{proof}
 
 It is highlighted that the backlog bound obtained with Theorem \ref{theorem3}, i.e. the right-hand side of Eq.\ref{eqn3}, is
@@ -527,11 +496,7 @@ Flow control has been widely used in the computer network to avoid network conge
 \section*{Acknowledgment}
 The authors would thank the reviewers for their suggestions and comments, and the first author would thanks Prof. Yuming Jiang of Norwegian University of Science and Technology (NTNU) for the fruitful discussion on the stochastic network calculus theory. This research is supported by High Technology Research and Development Program of China (Grant No. 2012AA012201, 2012AA011902).
 
-\bibliographystyle{ieicetr}% bib style
+\bibliographystyle{plain}% bib style
 \bibliography{Docear}% your bib database
-
-\profile[figures/me.eps]{Baoliang Li}{ was born in 1987. He received the B.S. degree in Computer Science and Technology from Tsinghua University, P.R. China, in 2009. He is currently working towards the Ph.D. degree from College of Computer at National University of Defense Technology (NUDT), P.R. China. His research interests is performance analysis of computer networks and Networks-on-Chip, with a special interest on the analytical methods of network calculus.}
-\profile[figures/zj.eps]{Jie Zhao}{was born in 1987. He receive the B.S. degree from Tsinghua University (Beijing, 100084, P. R. China) in Sep. 2009 and the M.S. degree in State Key Laboratory of Mathematical Engineering and Advanced Computing in 2012. He is currently working toward the Ph.D. degree in State Key Laboratory of Mathematical Engineering and Advanced Computing, Wuxi, 214125, P.R. China. His research focuses on parallel computing and computer networks.}
-\profile[figures/dwh.eps]{Wenhua Dou}{ was born in 1946. He received the B.S. degree in computer science from Harbin Military Engineering College in 1970. He has been working at National University of Defense Technology (NUDT), P.R. China since 1970. He was vice dean of College of Computer, NUDT from 1999 to 2003. He is currently a professor of College of Computer, NUDT with research focusing on computer networks.}
 
 \end{document}
