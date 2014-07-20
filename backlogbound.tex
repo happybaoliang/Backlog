@@ -20,6 +20,8 @@
 \newtheorem{definition}{Definition}
 \newtheorem{proof}{Proof}
 
+\def \QED {\hfill \vrule height6pt width 6pt depth 0pt}
+
 \hyphenation{DNC}
 \hyphenation{SNC}
 \hyphenation{WFC}
@@ -122,7 +124,7 @@ P\left\{\sup_{0\leq s\leq t}\{\beta_{\theta}(t-s)-\mathcal{S}(s,t)\}>x\right\} &
 &\leq & \sum_{\tau=0}^\infty g(x+\theta\tau)\\
 &\leq & g(x)+\frac{1}{\theta}\int_{x}^\infty g(y)dy
 \end{eqnarray*}
-which completes the proof.
+which completes the proof.\QED
 \end{proof}
 
 We can also derive the model transform theorem between $v.b.$ stochastic strict service curve and $m.b.$ stochastic strict service curve, as shown in the following theorem, which provides a way to obtain the $m.b.$ stochastic strict service curve. We omit the detailed proof of this theorem, since it can be easily proved following the same proof procedure as Theorem \ref{mtrans}.
@@ -177,7 +179,7 @@ If $t_0$ is in one of the idle period of lossless WFC shown in Fig. \ref{control
 \end{equation}
 \end{lemma}
 \begin{proof}
-Obviously, for $\forall t\geq 0$, $\mathcal{I}(t)\leq \mathcal{A}(t)$ by casuality. At time instance $t_0$, if $\mathcal{I}(t_0)<\mathcal{A}(t_0)$, buffered data in controller will be admitted and makes the WFC keep on working, which is contrary to the fact that $t_0$ is in the idle period. Thus, $\mathcal{I}(t_0)=\mathcal{A}(t_0)$.
+Obviously, for $\forall t\geq 0$, $\mathcal{I}(t)\leq \mathcal{A}(t)$ by casuality. At time instance $t_0$, if $\mathcal{I}(t_0)<\mathcal{A}(t_0)$, buffered data in controller will be admitted and makes the WFC keep on working, which is contrary to the fact that $t_0$ is in the idle period. Thus, $\mathcal{I}(t_0)=\mathcal{A}(t_0)$.\QED
 \end{proof}
 
 We can also get the following Lemma. This Lemma makes no assumptions on the arrival process and service process, and serves as the basis to derive all the four backlog bounds in subsection \ref{backlog}.
@@ -198,7 +200,7 @@ According to Lemma \ref{lamma1}, we have
   P\{\mathcal{L}(t)>x\}&=&P\{[\mathcal{A}(t)-\mathcal{T}(t)-W]^+>x\}\\
   &=&P\{\mathcal{A}(t)-\mathcal{T}(t)-W>x\}
 \end{eqnarray*}
-which ends the proof.
+which ends the proof.\QED
 \end{proof}
 
 \subsection{Backlog Bound}\label{backlog}
@@ -316,14 +318,14 @@ Combining these two cases, we have
 
 If $\mathcal{A}(t)$, $\mathcal{S}_1(t)$ and $\mathcal{S}_2(t)$ are independent, we can adopt the Stieltjes convolution to get a much tighter probability bound
 $$P\{\mathcal{L}(t)>x\}\leq 1-\bar{f}\ast\bar{g_1}\ast\bar{g_2}([y^\prime]^+)$$
-which ends the proof.
+which ends the proof.\QED
 \end{proof}
 
 The above theorem was derived based on some basic probability techniques without making any assumption on the arrival process and service process. Although generality, the backlog bound can be further improved if we take the characterization of arrival and service into consideration. As shown in the following two theorems.
 \begin{theorem}\label{theorem2}
 For a WFC with window size $W$, if the arrival process $\mathcal{A}(t)$, feed-forward service process $\mathcal{S}_1(t)$ and feedback service process $\mathcal{S}_2(t)$ are both stationary processes, the backlog bound
 $$P\{\mathcal{L}(t)>x\}\leq {t+2\choose 3}\cdot \inf_{\theta\in\Theta}\{\sup_{0\leq w\leq t}e^{\theta((t\rho)\oslash((t\mu_1^\prime)\otimes(t\mu_2^\prime))(\theta,w)-W-x)}\}$$
-where $\rho(\theta,t)$ is the effective bandwidth of arrival process, $\mu_1^\prime(\theta,t)$ and $\mu_2^\prime(\theta,t)$ are effective capacity of $\mathcal{S}_1(t)$ and $\mathcal{S}_2(t)$, $\Theta$ is the set of $\theta$ satisfying $\rho(\theta,t)\leq \mu_1^\prime\otimes\mu_2^\prime(\theta,t)$.
+where $\rho(\theta,t)$ is the effective bandwidth of arrival process, $\mu_1^\prime(\theta,t)$ and $\mu_2^\prime(\theta,t)$ are effective capacity of $\mathcal{S}_1(t)$ and $\mathcal{S}_2(t)$, $\Theta$ is the set of $\theta$ satisfying $t\rho(\theta,t)\leq (t\mu_1^\prime)\otimes(t\mu_2^\prime)(\theta,t)$.
 \end{theorem}
 
 \begin{proof}
@@ -358,9 +360,9 @@ P\{\mathcal{L}(t)>x\}\leq {t+2\choose 3}\cdot \sup_{0\leq w\leq t}e^{\theta((t\r
 \end{equation}
 
 Because the model we considered in this paper is lossless, to avoid infinite backlog, the following stability condition should be hold for $\forall t>0$,
-$$\rho(\theta,t)\leq \mu_1^\prime\otimes\mu_2^\prime(\theta,t).$$
+$$t\rho(\theta,t)\leq (t\mu_1^\prime)\otimes(t\mu_2^\prime)(\theta,t).$$
 
-Denote by $\Theta$ the set of $\theta$ satisfying $\rho(\theta,t)\leq \mu_1^\prime\otimes\mu_2^\prime(\theta,t)$, then we can optimize the backlog bound by selecting appropriate $\theta\in\Theta$ to make the right-hand side of Eq. (\ref{target}) minimized, which ends the proof.
+Denote by $\Theta$ the set of $\theta$ satisfying $t\rho(\theta,t)\leq (t\mu_1^\prime)\otimes(t\mu_2^\prime)(\theta,t)$, then we can optimize the backlog bound by selecting appropriate $\theta\in\Theta$ to make the right-hand side of Eq. (\ref{target}) minimized, which ends the proof.\QED
 \end{proof}
 
 \begin{theorem}\label{theorem3}
@@ -386,7 +388,7 @@ P\left\{\mathcal{L}(t)>x\right\}  &=&P\left\{\mathcal{A}(t_{0},t)-\mathcal{S}(t_
   &=& e^{-\theta(W+x)}\cdot E[e^{\theta(\mathcal{A}(1)-\mathcal{S}(1))}].
 \end{eqnarray*}
 
-We can optimize this bound by free parameter $\theta$ under the constraint $E[e^{\theta(\mathcal{A}(1)-\mathcal{S}(1))}]\leq 1$.
+We can optimize this bound by free parameter $\theta$ under the constraint $E[e^{\theta(\mathcal{A}(1)-\mathcal{S}(1))}]\leq 1$.\QED
 \end{proof}
 
 It is highlighted that the backlog bound obtained with Theorem \ref{theorem3}, i.e. the right-hand side of Eq. (\ref{eqn3}), is
@@ -396,7 +398,7 @@ independent on time $t$, which indicates that it is also a steady-state bound.
 In this section, we compare the numerical results of backlog bounds calculated with our theorems with experimental and existing theoretical results. Our goals in this section are two-fold: (1) We try to demonstrate the feasibility of our theorems and the tightness of our results; (2) We intend to illustrate the impact of different offered load and window control parameters, e.g. window size and feedback delay, on the backlog bound of WFC. To achieve these goals, we take the credit-based flow controller as an example which is widely used in interconnection networks \cite{DaTo04}. In credit-based flow controller, a dedicated physical link is used to transmit the feedback credit. This dedicated physical link can be modelled as a Latency-Rate (LR) server \cite{StVa98} with service rate $C_2$ and latency $\tau$. Three arrival and service processes combinations are considered in this section: (1) Scenario I: Poisson input and constant rate service; (2) Scenario II: Poisson input with exponentially distributed service time; (3) Scenario III: Bernoulli input and exponentially distributed service time. The reason of choosing these three models is that there are already extensive research results for these models, which can be directly used to derive our backlog bounds.
 
 \subsection{Scenario I}
-Under Scenario I, suppose all the packets in the traffic flow have the same length $L$, and the packet arrivals subject to Poisson process with parameter $\lambda$. Then, the traffic has a $v.b.c.$ stochastic arrival curve $<e^{-\theta_1^\prime\theta_1}e^{-\theta_1 x},\frac{\lambda}{\theta_1}(e^{\theta_1 L}-1)\cdot t+\theta_1^\prime\cdot t>$ \cite{jiang2010note}, where $\theta_1^\prime\geq 0$ and $\theta_1>0$ are free parameters. The feed-forward service element is a constant rate server with service rate $C_1$. Then, it can be verified that the constant rate server provides a $m.b.$ stochastic strict service curve $<0,C_1\cdot [t-0]^+>$ and the fixed latency element provides a $v.b.$ stochastic strict service curve $<0,C_2[t-\tau]^+>$.
+Under scenario I, suppose all the packets in the traffic flow have the same length $L$, and the packet arrivals subject to Poisson process with parameter $\lambda$. Then, the traffic has a $v.b.c.$ stochastic arrival curve $<e^{-\theta_1^\prime\theta_1}e^{-\theta_1 x},\frac{\lambda}{\theta_1}(e^{\theta_1 L}-1)\cdot t+\theta_1^\prime\cdot t>$ \cite{jiang2010note}, where $\theta_1^\prime\geq 0$ and $\theta_1>0$ are free parameters. The feed-forward service element is a constant rate server with service rate $C_1$. Then, it can be verified that the constant rate server provides a $m.b.$ stochastic strict service curve $<0,C_1\cdot [t-0]^+>$ and the fixed latency element provides a $v.b.$ stochastic strict service curve $<0,C_2[t-\tau]^+>$.
 
 Let free parameter $\theta_1^\prime=0$, we can get the backlog bound of WFC with Eq.(\ref{eqn2}), which is
 \begin{eqnarray}\label{bounding}
@@ -408,12 +410,12 @@ where the free parameter $\theta_1$ should satisfying the following stability co
 \frac{\lambda}{\theta_1}(e^{\theta_1 L}-1)\leq \min\{C_1,C_2\}.
 \end{equation}
 
-To investigate the influence of feedback delay on the backlog bound, we set $L=1kb$, $C_1=C_2=1Mbps$, $\lambda=800s^{-1}$, $W=10kb$, and increasing the feedback delay $\tau$ from $0s$ to $0.004s$. The numerical results was conducted by selecting appropriated $\theta_1$ under the constraint of Eq.(\ref{stabilitycond2}) to make the right side of Eq.(\ref{bounding}) as small as possible. Figure \ref{backlogtau} illustrates the backlog bound of WFC at time instance $t=0.002s$. As shown in this figure, for the same backlog value $x$, a larger feedback delay leads to a larger probability that the actual backlog of WFC exceeds $x$. Because a high efficient flow controller can guarantee a lower blocking ratio at the controller, our results  provide a way to analyze the efficiency of flow controller quantitatively.
+To investigate the influence of feedback delay on the backlog bound, we set $L=1kb$, $C_1=C_2=1Mbps$, $\lambda=800s^{-1}$, $W=10kb$, and increasing the feedback delay $\tau$ from $0s$ to $0.006s$. The numerical results was conducted by selecting appropriated $\theta_1$ under the constraint of Eq.(\ref{stabilitycond2}) to make the right side of Eq.(\ref{bounding}) as small as possible. Figure \ref{backlogtau} illustrates the backlog bound of WFC at time instance $t=0.002s$. As shown in this figure, for the same backlog value $x$, a larger feedback delay leads to a larger probability that the actual backlog of WFC exceeds $x$. Because a high efficient flow controller can guarantee a lower blocking ratio at the controller, our results  provide a way to analyze the efficiency of flow controller quantitatively.
 \begin{figure}[bpt]
   \centering
   % Requires \usepackage{graphicx}
   \includegraphics[scale=0.45]{figures/backlogtau.eps}\\
-  \caption{Backlog Bound at $t=0$ for Scenario I}\label{backlogtau}
+  \caption{Backlog bound at $t=0.002s$ for scenario I}\label{backlogtau}
 \end{figure}
 
 \subsection{Scenario II}\label{scenario2}
@@ -435,27 +437,13 @@ Let $\lambda=800s^{-1}$, $\mu=1000s^{-1}$, $\tau=0$ and $L=1kb$. We change the w
   \centering
   % Requires \usepackage{graphicx}
   \includegraphics[scale=0.45]{figures/backlogcomp.eps}\\
-  \caption{Backlog Bound for Scenario II}\label{result3}
+  \caption{Backlog bound for scenario II}\label{result3}
 \end{figure}
 
 \subsection{Scenario III}
 For this scenario, suppose the time is divided into slots with the same length $T$, and all the packets have the same length $L$. For each time slot, the source generates a packet with probability $p$ and keeps silent with probability $1-p$. Thus, arrival process $\mathcal{A}(t)$ is a typical two-states Markov-Modulated process. We can obtain the backlog bound with Theorem \ref{theorem2} or Theorem \ref{theorem3}, because the arrival and service processes of this scenario are both independent and stationary increment process. To demonstrate the tightness of Theorem \ref{theorem2} and Theorem \ref{theorem3}, we consider the follow two cases:
 
-(1) $C_2=+\infty$ and $\tau=0$: For this case, the service process $\mathcal{S}(t)$ is equal to the feed-forward service process $\mathcal{S}_1(t)$, which is a Markovian process with exponentially distributed service time. We can obtain n backlog bound by applying Theorem \ref{theorem3}, which is
-\begin{equation*}\label{equation3}
-P\{\mathcal{L}(t)>x\}\leq e^{-\theta(W+x)}\cdot e^{\mu(e^{-\theta L}-1)+(1-p+pe^{\theta L})}
-\end{equation*}
-where $\theta>0$ and satisfying $\mu(e^{-\theta L}-1)+(1-p+pe^{\theta L})\leq 0$.
-
-To verify the tightness of our theorem, we built an event-driven simulator based on the OMNeT++ discrete event simulation platform \cite{omnetpp}. Let $L=1kb$, $\mu=40s^{-1}$, $T=0.02s$, and change the window size from $5kb$ to $20kb$, we get the analytical results and simulation results. As shown in Fig. \ref{result1}, the analytical results match well with the simulation results, which indicates that, our theoretical bounds based on SNC can indeed predicate the performance of WFC exactly. Another observation is that, the backlog bound decreases along with the increasing of window size. However, the larger window size, the larger risk of network congestion. Hence, there is a tradeoff between the cost of buffer space and the risk of network congestion.
-\begin{figure}
-  \centering
-  % Requires \usepackage{graphicx}
-  \includegraphics[scale=0.45]{figures/backlogbuf.eps}\\
-  \caption{Backlog Bound for Scenario III with different Window Size}\label{result1}
-\end{figure}
-
-(2) $C_2<+\infty$ and $\tau> 0$: For this scenario, the arrival and service processes are stationary. The effective bandwidth of the arrival process can be found in \cite{Chan94}, i.e. $\rho(\theta,t)=\frac{1}{\theta}\log(1-p+pe^{\theta L})$. The effective capacity of the feed-back service process is $\mu_2^\prime(\theta)=C_2$, feed-forward service process $\mathcal{S}_1(t)$ provides exponentially distributed service time with parameter $\mu$ for each packet. Thus, the effective capacity of this service process with parameter $\mu$ is
+(1) $C_2<+\infty$ and $\tau= 0$: For this scenario, the arrival and service processes are stationary. The effective bandwidth of the arrival process can be found in \cite{Chan94}, i.e. $\rho(\theta,t)=\frac{1}{\theta}\log(1-p+pe^{\theta L})$. The effective capacity of the feedback service process $\mu_2^\prime(\theta,t)=C_2$, feed-forward service process $\mathcal{S}_1(t)$ provides exponentially distributed service time with parameter $\mu$ for each packet. Thus, the effective capacity of this service process is
 \begin{eqnarray*}
 \mu_1^\prime(\theta,t)&=& \frac{1}{-\theta t}log E[e^{-\theta \mathcal{S}_1(t)}]\\
 &=& \frac{1}{-\theta t}log(\sum_{x=0}^\infty e^{-\theta Lx}\frac{e^{-t\mu}(t\mu)^x}{x!})\\
@@ -464,19 +452,33 @@ To verify the tightness of our theorem, we built an event-driven simulator based
 
 We can get a backlog bound by applying Theorem \ref{theorem2}, which is
 \begin{equation}\label{bernoullibound}
-P\{\mathcal{L}(t)>x\}\leq {t+2\choose 3}\cdot e^{-\theta [x+W-t/\theta log(1-p+pe^{\theta L})]}.
+P\{\mathcal{L}(t)>x\}\leq {t+2\choose 3}\cdot e^{-\theta [x+W-\sup_{0\leq w\leq t}\phi\oslash \varphi(\theta,w)]}
 \end{equation}
-This backlog bound can be minimized by selecting free parameters $\theta$ satisfying the following stability condition
+where $\phi(\theta,t)=\rho(\theta,t)t$, $\varphi(\theta,t)=(t \mu_1^\prime)\otimes(t \mu_2^\prime)(\theta,t)$ and $\Theta$ is the set of $\theta$ satisfying the following stability condition
 \begin{equation}\label{stabilitycond3}
-\rho(\theta)\leq \mu_1^\prime\otimes\mu_2^\prime(\theta).
+\phi(\theta,t)\leq \varphi(\theta,t).
 \end{equation}
 
-It is intuitive that a heavy offered load will lead to a large backlog bound, and our results  provide a way to quantitatively analyze the relationship between offered load and the backlog bound. To explore the impact of offered load on the backlog bound, we set $L=1kb$, $T=0.02s$, $W=5kb$, $\mu=50s^{-1}$, $\tau=0.002s$ and change the offered load by increasing the probability $p$ from $0.8$ to $0.95$. Figure \ref{result2} illustrates the calculated backlog bound of WFC at time instance $t=0.002s$. The numerical results was conducted by selecting appropriate $\theta$ under the constraint of Eq.(\ref{stabilitycond3}) to make the Eq.(\ref{bernoullibound}) as small as possible.
+It is intuitive that a heavy offered load will lead to a large backlog bound, and our results  provide a way to quantitatively analyze the relationship between offered load and the backlog bound. To explore the impact of offered load on the backlog bound, we set $L=1kb$, $T=0.02s$, $W=5kb$, $\mu=50s^{-1}$, $C_2=50kbps$ and change the offered load by increasing the probability $p$ from $0.8$ to $0.95$. Figure \ref{result2} illustrates the calculated backlog bound of WFC at time instance $t=0.02s$. The numerical results was conducted by selecting appropriate $\theta$ under the constraint of Eq.(\ref{stabilitycond3}) to make the Eq.(\ref{bernoullibound}) as small as possible.
 \begin{figure}
   \centering
   % Requires \usepackage{graphicx}
   \includegraphics[scale=0.45]{figures/backlogrho.eps}\\
-  \caption{Backlog Bound for Scenario III with different Offered Load}\label{result2}
+  \caption{Backlog bound for scenario III with different offered load}\label{result2}
+\end{figure}
+
+(2) $C_2=+\infty$ and $\tau=0$: For this case, the service process $\mathcal{S}(t)$ is equal to the feed-forward service process $\mathcal{S}_1(t)$, which is a Markovian process with exponentially distributed service time. We can obtain the backlog bound by applying Theorem \ref{theorem3}, which is
+\begin{equation*}\label{equation3}
+P\{\mathcal{L}(t)>x\}\leq e^{-\theta(W+x)}\cdot e^{\mu(e^{-\theta L}-1)+(1-p+pe^{\theta L})}
+\end{equation*}
+where $\theta>0$ and satisfying $(1-p+pe^{\theta L})e^{\mu(e^{-\theta L}-1)}\leq 1$.
+
+To verify the tightness of our theorem, we built an event-driven simulator based on the OMNeT++ discrete event simulation platform \cite{omnetpp}. Let $L=1kb$, $\mu=0.8s^{-1}$, $T=0.02s$, $p=0.75$ and change the window size from $5kb$ to $20kb$, we get the analytical results and simulation results. As shown in Fig. \ref{result1}, the analytical results match well with the simulation results, which indicates that, our theoretical bounds based on SNC can indeed predicate the performance of WFC exactly. Another observation is that, the backlog bound decreases along with the increasing of window size. However, the larger window size, the larger risk of network congestion. Hence, there is a tradeoff between the cost of buffer space and the risk of network congestion.
+\begin{figure}
+  \centering
+  % Requires \usepackage{graphicx}
+  \includegraphics[scale=0.45]{figures/backlogbuf.eps}\\
+  \caption{Backlog bound for scenario III with different window size}\label{result1}
 \end{figure}
 
 \section{Conclusion}\label{concluson}
